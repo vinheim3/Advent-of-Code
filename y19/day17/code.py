@@ -69,8 +69,6 @@ Y
 
     mach = Machine(ints, input_func)
 
-    grid = load_grid(mach, draw=inputs[-2] == 'Y')
-    # for row in grid:
-    #     print("".join(row))
+    load_grid(mach, draw=True)
 
     print(mach.last_output)
