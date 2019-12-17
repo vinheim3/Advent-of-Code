@@ -15,35 +15,38 @@ class Machine:
         self.data.extend([0]*(len(self.data)*2))
         self.relative_base = 0
 
-    def get_op(self, idx):
-        # idx is index of the op to get
+    def param_mode(self, idx):
         opcode_group = self.data[self.pc]
         divisor = 10 * (10 ** idx)
-        param_mode = (opcode_group // divisor) % 10
+        return (opcode_group // divisor) % 10
+
+    def get_op(self, idx):
+        # idx is index of the op to get
+        param_mode = self.param_mode(idx)
         immediate_value = self.data[self.pc+idx]
+        relative_idx = immediate_value+self.relative_base
 
         if param_mode == 1:  # immediate mode
             return immediate_value
         elif param_mode == 0:  # position mode
             return self.data[immediate_value]
         elif param_mode == 2:  # relative mode
-            return self.data[immediate_value+self.relative_base]
+            return self.data[relative_idx]
         else:
             raise Exception(f"Invalid paramMode: {param_mode}")
 
     def set_op(self, idx, val):
         # idx is index of the op to get
-        opcode_group = self.data[self.pc]
-        divisor = 10 * (10 ** idx)
-        param_mode = (opcode_group // divisor) % 10
+        param_mode = self.param_mode(idx)
         immediate_value = self.data[self.pc+idx]
+        relative_idx = immediate_value+self.relative_base
 
         if param_mode == 1:  # immediate mode
             raise Exception("Cannot write to a parameter in immediate mode")
         elif param_mode == 0:  # position mode
             self.data[immediate_value] = val
         elif param_mode == 2:  # relative mode
-            self.data[immediate_value+self.relative_base] = val
+            self.data[relative_idx] = val
         else:
             raise Exception(f"Invalid paramMode: {param_mode}")
 
