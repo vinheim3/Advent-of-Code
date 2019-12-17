@@ -6,6 +6,7 @@ fname = get_fname(__file__)
 
 def load_grid(mach, draw=False):
     grid = []
+    last_grid = None
     curr_row = []
     res = mach.process_opcode(stop_on_output=True)
     while res is not False:
@@ -13,18 +14,20 @@ def load_grid(mach, draw=False):
         if res is True:
             continue
         if res == 10:
-            if draw and curr_row == []:
-                print('-'*47)
-                for row in grid:
-                    print("".join(row))
+            if not curr_row:
+                last_grid = [*grid]
                 grid = []
-            grid.append(curr_row)
+                if draw:
+                    print('-'*47)
+                    for row in last_grid:
+                        print("".join(row))
+            else:
+                grid.append(curr_row)
             curr_row = []
         else:
             curr_row.append(chr(res))
 
-    grid = grid[:-1]
-    return grid
+    return last_grid
 
 
 def solve_pt1():
@@ -32,9 +35,6 @@ def solve_pt1():
     mach = Machine(ints)
 
     grid = load_grid(mach)
-
-    for row in grid:
-        print("".join(row))
 
     total = 0
     height = len(grid)
