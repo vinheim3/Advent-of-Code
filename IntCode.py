@@ -11,8 +11,8 @@ class Machine:
         self.input_cnt = 0
         self.last_output = None
 
-        # For day 9, it seems enough to just double the space
-        self.data.extend([0]*(len(self.data)))
+        # Further extension for day 17
+        self.data.extend([0]*(len(self.data)*2))
         self.relative_base = 0
 
     def get_op(self, idx):
