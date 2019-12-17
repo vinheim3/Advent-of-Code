@@ -56,7 +56,7 @@ class Machine:
             res = self.process_opcode()
         return self.last_output
 
-    def process_opcode(self, stop_on_output=False):
+    def process_opcode(self):
         opcode_group = self.data[self.pc]
         opcode = opcode_group % 100
         if opcode == 99:
@@ -80,8 +80,7 @@ class Machine:
         elif opcode == 4:  # output
             self.last_output = self.get_op(1)
             self.pc += 2
-            if stop_on_output:
-                return self.last_output
+            return self.last_output
 
         elif opcode == 5:  # jump-if-true
             if self.get_op(1) != 0:

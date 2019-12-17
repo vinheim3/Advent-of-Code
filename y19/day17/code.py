@@ -8,9 +8,9 @@ def load_grid(mach, draw=False):
     grid = []
     last_grid = None
     curr_row = []
-    res = mach.process_opcode(stop_on_output=True)
+    res = mach.process_opcode()
     while res is not False:
-        res = mach.process_opcode(stop_on_output=True)
+        res = mach.process_opcode()
         if res is True:
             continue
         if res == 10:

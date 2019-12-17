@@ -64,7 +64,7 @@ def solve_pt1():
                 screen.setdefault(y, {})[x] = res
 
             output_type = (output_type + 1) % 3
-        res = mach.process_opcode(stop_on_output=True)
+        res = mach.process_opcode()
 
     total_blocks = 0
     for y, xvals in screen.items():
@@ -110,6 +110,6 @@ def solve_pt2():
                         time.sleep(0.02)
 
                 output_type = (output_type + 1) % 3
-            res = mach.process_opcode(stop_on_output=True)
+            res = mach.process_opcode()
     finally:
         draw_screen(screen)

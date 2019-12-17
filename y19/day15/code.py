@@ -128,7 +128,7 @@ def get_grid_rows(draw=False):
     mach = Machine(ints, input_func=input_func)
 
     while any(to_explore.values()):
-        res = mach.process_opcode(stop_on_output=True)
+        res = mach.process_opcode()
         if res is True:
             continue
 

@@ -47,9 +47,9 @@ def loop_run_amps(ints, a, b, c, d, e):
 
     while True:
         for i, mach in enumerate([a_mach, b_mach, c_mach, d_mach, e_mach]):
-            res = mach.process_opcode(stop_on_output=True)
+            res = mach.process_opcode()
             while res is True:
-                res = mach.process_opcode(stop_on_output=True)
+                res = mach.process_opcode()
             if res is not False:
                 last_signal = res
             elif i == 4:

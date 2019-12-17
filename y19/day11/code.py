@@ -41,7 +41,7 @@ def get_painted(initial=None):
                 curr_x += dx
                 curr_y += dy
             output_type = 1 - output_type
-        res = mach.process_opcode(stop_on_output=True)
+        res = mach.process_opcode()
 
     return painted
 
